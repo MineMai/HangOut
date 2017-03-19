@@ -1,0 +1,6 @@
+framework module Pods_AllTogeter {
+  umbrella header "Pods-AllTogeter-umbrella.h"
+
+  export *
+  module * { export * }
+}
