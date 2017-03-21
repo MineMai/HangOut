@@ -26,11 +26,6 @@ class DBProvider
         return FIRStorage.storage().reference()
     }
     
-    func saveUser(withID:String , email:String, password:String)
-    {
-        let data:[String:Any] = ["email":email,"password":password]
-        dbRef.child("Users").child(withID).setValue(data)
-    }
     
     
 }

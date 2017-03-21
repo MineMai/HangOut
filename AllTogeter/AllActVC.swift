@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FBSDKLoginKit
 
 class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -27,7 +29,19 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.view.addGestureRecognizer(revealViewController().panGestureRecognizer())
         }
         
+        
+        let currentID = FIRAuth.auth()?.currentUser?.uid
+        print("xxcurrentID = \(currentID)\n")
+        print("xxFBCurrentUser2 = \(FBSDKAccessToken.current())\n")
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        //MsgHandler.Instance.readActivity()
+    }
+    
+    
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -47,8 +61,13 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-
     
+    
+    //取消點選的灰色
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
     
     

@@ -60,7 +60,7 @@ class AuthProvider
                 if user?.uid != nil
                 {
                     //就將此user存進database
-                    DBProvider.Instance.saveUser(withID: (user?.uid)!, email: email, password: password)
+                    MsgHandler.Instance.saveUser(ID: (user?.uid)!, email: email, password: password)
                     //然後就登入進去
                     self.logIn(email: email, password: password, loginHandler: loginHandler)
                 }

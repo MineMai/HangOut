@@ -27,10 +27,10 @@ class FBManager
             
             if error != nil
             {
-                print("xxxFirebase的FB使用者帳號出錯:", error)
+                print("xxxFB使用者帳號出錯:", error)
                 return
             }
-            print("xxxFirebase的FB使用者帳號成功", user)
+            print("xxxFB使用者帳號成功", user)
         })
         
         
@@ -47,6 +47,11 @@ class FBManager
                     print("xxxJson = \(json)")
                     
                     FBUser.currentFBUser.setInfo(json: json)
+                    
+                    //就將此FBuser存進database
+                    //let fbEmail = FBUser.currentFBUser.email
+                    //let fbID = FBUser.currentFBUser.FBID
+                    //MsgHandler.Instance.saveUser(ID: fbID!, email: fbEmail!, password: "FBpassword")
                     
                     completionHandler()
                 }

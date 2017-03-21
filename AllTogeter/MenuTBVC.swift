@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 class MenuTBVC: UITableViewController {
     
@@ -20,8 +21,13 @@ class MenuTBVC: UITableViewController {
 
         view.backgroundColor = UIColor(red: 0.20, green: 0.27, blue: 0.38, alpha: 1.0)
         
-        menuNameLabel.text = FBUser.currentFBUser.name
-        menuPicture.image = try! UIImage(data: Data(contentsOf: URL(string: FBUser.currentFBUser.pictureURL!)!))
+        //如果是用FB登入的才去載FB的照片名字
+        if FBSDKAccessToken.current() != nil
+        {
+            menuNameLabel.text = FBUser.currentFBUser.name
+            menuPicture.image = try! UIImage(data: Data(contentsOf: URL(string: FBUser.currentFBUser.pictureURL!)!))
+        }
+        
         menuPicture.layer.cornerRadius = 70 / 2
         menuPicture.layer.borderWidth = 1.0
         menuPicture.layer.borderColor = UIColor.white.cgColor
@@ -36,7 +42,30 @@ class MenuTBVC: UITableViewController {
         {
             FBManager.shared.logOut()
             FBUser.currentFBUser.resetInfo()
+            
+            //.............................
+            if AuthProvider.Instance.logOut()
+            {
+                actMsg = []
+                hostMsg = []
+                forAllActVCtoShowImg = []
+                detailImagePass = []
+                print("已登出Firebase帳號")
+            }
+            else
+            {
+                alertTheUser(title: "登出異常", message: "現在無法登出，請稍候再試")
+            }
+            
         }
+    }
+    
+    func alertTheUser(title:String, message:String)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(ok)
+        present(alert, animated: true, completion: nil)
     }
 
     

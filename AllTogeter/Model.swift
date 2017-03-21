@@ -9,48 +9,42 @@
 import UIKit
 
 
-var actMessage = [ActMessage]()
+var actMsg = [ActMsg]()
 
-var hostMessage = [ActMessage]()
+var hostMsg = [ActMsg]()
 
-class ActMessage
+class ActMsg
 {
-    var uid = ""
-    var topic = ""
-    var place = ""
-    var time = ""
-    var autoKey = ""
     var from = ""
+    var topic = ""
+    var latitude = ""
+    var longitude = ""
+    var time = ""
+    var kind = ""
+    var people = ""
+    var imageURL = ""
+    var currentID = ""
+    var autoKey = ""
     
-    init(uid:String, topic:String, place:String, time:String, autoKey:String, from:String)
+    init(from:String, topic:String, latitude:String, longitude:String, time:String, kind:String, people:String, imageURL:String, currentID:String, autoKey:String)
     {
-        self.uid = uid
-        self.topic = topic
-        self.place = place
-        self.time = time
-        self.autoKey = autoKey
         self.from = from
-        
+        self.topic = topic
+        self.latitude = latitude
+        self.longitude = longitude
+        self.time = time
+        self.kind = kind
+        self.people = people
+        self.imageURL = imageURL
+        self.currentID = currentID
+        self.autoKey = autoKey
     }
 }
 
-var forSecondVCtoShowImg = [UIImage]()
-var forListTBVCtoShowImg = [UIImage]()
-
+var forAllActVCtoShowImg = [UIImage]()
+var forHostToShowImg = [UIImage]()
 var detailImagePass = [UIImage]()
 
-
-var applyMessage = [ApplyMessage]()
-
-class ApplyMessage
-{
-    var whoApply = ""
-    
-    init(whoApply:String)
-    {
-        self.whoApply = whoApply
-    }
-}
 
 
 
