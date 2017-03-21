@@ -18,6 +18,8 @@
 		1116894F1E7D788900C14988 /* FBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1116894E1E7D788900C14988 /* FBUser.swift */; };
 		111689511E7E5ACC00C14988 /* MsgHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111689501E7E5ACC00C14988 /* MsgHandler.swift */; };
 		111689531E7E89DF00C14988 /* searchLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111689521E7E89DF00C14988 /* searchLocationVC.swift */; };
+		11AE217C1E81081B0097AEF4 /* AllActTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AE217B1E81081B0097AEF4 /* AllActTBCell.swift */; };
+		11AE217E1E813D390097AEF4 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AE217D1E813D390097AEF4 /* MapVC.swift */; };
 		11D77F6D1E705ECE001102AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D77F6C1E705ECE001102AC /* AppDelegate.swift */; };
 		11D77F721E705ECE001102AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11D77F701E705ECE001102AC /* Main.storyboard */; };
 		11D77F751E705ECF001102AC /* AllTogeter.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11D77F731E705ECE001102AC /* AllTogeter.xcdatamodeld */; };
@@ -45,6 +47,8 @@
 		1116894E1E7D788900C14988 /* FBUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBUser.swift; sourceTree = "<group>"; };
 		111689501E7E5ACC00C14988 /* MsgHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MsgHandler.swift; sourceTree = "<group>"; };
 		111689521E7E89DF00C14988 /* searchLocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchLocationVC.swift; sourceTree = "<group>"; };
+		11AE217B1E81081B0097AEF4 /* AllActTBCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllActTBCell.swift; sourceTree = "<group>"; };
+		11AE217D1E813D390097AEF4 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		11D77F691E705ECE001102AC /* AllTogeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllTogeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D77F6C1E705ECE001102AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11D77F711E705ECE001102AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -121,6 +125,8 @@
 				111689451E7CFB0300C14988 /* ProfileVC.swift */,
 				1116893F1E7C1F3500C14988 /* MenuTBVC.swift */,
 				111689521E7E89DF00C14988 /* searchLocationVC.swift */,
+				11AE217B1E81081B0097AEF4 /* AllActTBCell.swift */,
+				11AE217D1E813D390097AEF4 /* MapVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -301,7 +307,9 @@
 				1116893E1E7C1A5600C14988 /* AllActVC.swift in Sources */,
 				1116894F1E7D788900C14988 /* FBUser.swift in Sources */,
 				111689441E7C3C1D00C14988 /* AddItemVC.swift in Sources */,
+				11AE217E1E813D390097AEF4 /* MapVC.swift in Sources */,
 				1116893B1E7C097300C14988 /* MainViewController.swift in Sources */,
+				11AE217C1E81081B0097AEF4 /* AllActTBCell.swift in Sources */,
 				111689511E7E5ACC00C14988 /* MsgHandler.swift in Sources */,
 				111689531E7E89DF00C14988 /* searchLocationVC.swift in Sources */,
 				11D77FCC1E712B56001102AC /* DBProvider.swift in Sources */,

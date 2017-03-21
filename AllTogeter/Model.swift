@@ -17,8 +17,7 @@ class ActMsg
 {
     var from = ""
     var topic = ""
-    var latitude = ""
-    var longitude = ""
+    var place = ""
     var time = ""
     var kind = ""
     var people = ""
@@ -26,12 +25,11 @@ class ActMsg
     var currentID = ""
     var autoKey = ""
     
-    init(from:String, topic:String, latitude:String, longitude:String, time:String, kind:String, people:String, imageURL:String, currentID:String, autoKey:String)
+    init(from:String, topic:String, place:String, time:String, kind:String, people:String, imageURL:String, currentID:String, autoKey:String)
     {
         self.from = from
         self.topic = topic
-        self.latitude = latitude
-        self.longitude = longitude
+        self.place = place
         self.time = time
         self.kind = kind
         self.people = people
