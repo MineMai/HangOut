@@ -35,11 +35,12 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9tG-My-egY">
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="155" id="rOj-PW-ZAH"/>
                                             <constraint firstAttribute="height" constant="30" id="uOs-pL-rY2"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <state key="normal" title="Signup">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -83,13 +84,13 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.26666666666666666" blue="0.37647058823529411" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="Oe0-g3-R6T" firstAttribute="top" secondItem="Ugd-3h-kKB" secondAttribute="bottom" constant="100" id="2g8-tB-5zQ"/>
+                                    <constraint firstItem="Oe0-g3-R6T" firstAttribute="top" secondItem="Ugd-3h-kKB" secondAttribute="bottom" constant="90" id="2g8-tB-5zQ"/>
                                     <constraint firstAttribute="trailing" secondItem="Ugd-3h-kKB" secondAttribute="trailing" constant="20" id="6aG-JU-emo"/>
                                     <constraint firstItem="Ugd-3h-kKB" firstAttribute="top" secondItem="R8W-DF-ajm" secondAttribute="top" constant="95" id="7ag-eR-rav"/>
                                     <constraint firstItem="9tG-My-egY" firstAttribute="centerX" secondItem="R8W-DF-ajm" secondAttribute="centerX" id="BGM-VY-hHm"/>
-                                    <constraint firstItem="ecd-9a-tlq" firstAttribute="top" secondItem="9tG-My-egY" secondAttribute="bottom" constant="20" id="BeY-aO-xxP"/>
+                                    <constraint firstItem="ecd-9a-tlq" firstAttribute="top" secondItem="9tG-My-egY" secondAttribute="bottom" constant="25" id="BeY-aO-xxP"/>
                                     <constraint firstItem="Oe0-g3-R6T" firstAttribute="centerX" secondItem="R8W-DF-ajm" secondAttribute="centerX" id="Kmb-8V-Cl0"/>
-                                    <constraint firstItem="frc-3F-Rvo" firstAttribute="top" secondItem="Oe0-g3-R6T" secondAttribute="bottom" constant="20" id="aYc-jj-fNY"/>
+                                    <constraint firstItem="frc-3F-Rvo" firstAttribute="top" secondItem="Oe0-g3-R6T" secondAttribute="bottom" constant="25" id="aYc-jj-fNY"/>
                                     <constraint firstItem="9tG-My-egY" firstAttribute="top" secondItem="dif-lx-mqm" secondAttribute="bottom" constant="25" id="jYN-sp-Vdl"/>
                                     <constraint firstItem="frc-3F-Rvo" firstAttribute="centerX" secondItem="R8W-DF-ajm" secondAttribute="centerX" id="lmh-tw-pwg"/>
                                     <constraint firstItem="Ugd-3h-kKB" firstAttribute="leading" secondItem="R8W-DF-ajm" secondAttribute="leading" constant="20" id="mbZ-lu-ZNk"/>
@@ -484,7 +485,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="110台北市南京東路2段123號7樓之" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="40R-jq-z9M">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="110台北市南京東路2段123號7樓之8" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="40R-jq-z9M">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="sw3-Yb-wTz"/>
                                         </constraints>
@@ -495,9 +496,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GXS-wl-2gs">
                                         <color key="backgroundColor" red="0.30588235294117649" green="0.69019607843137254" blue="0.29803921568627451" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="Fny-n8-I70"/>
+                                            <constraint firstAttribute="height" constant="45" id="Fny-n8-I70"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <state key="normal" title="報名">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -578,6 +579,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="主題" id="Qjy-4g-g5G"/>
                     <connections>
+                        <outlet property="applyBtnOutlet" destination="GXS-wl-2gs" id="kt0-9H-ijW"/>
                         <outlet property="detailImage" destination="SsU-vv-w1A" id="T24-7Z-A0a"/>
                         <outlet property="detailKindLabel" destination="Smp-Im-eEY" id="Zi5-EP-bCb"/>
                         <outlet property="detailPeopleLabel" destination="55R-cg-nZH" id="oLC-cr-hlw"/>
