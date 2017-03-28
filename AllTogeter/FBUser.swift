@@ -42,7 +42,21 @@ class FBUser
 }
 
 
-
+class FBUsers
+{
+    var name:String?
+    var email:String?
+    var pictureURL:URL?
+    
+    init(name:String, email:String, pictureURL:URL)
+    {
+        self.name = name
+        self.email = email
+        self.pictureURL = pictureURL
+    }
+    
+    
+}
 
 
 

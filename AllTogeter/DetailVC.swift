@@ -44,15 +44,21 @@ class DetailVC: UIViewController {
             detailPlaceLabel.text = String(showPlaceLabel)
             navigationItem.title = actMsg[index].topic
             
-            detailImage.image = forAllActVCtoShowImg[index]
+            //載資料
+            loadData()
+            checkApply()
             
         }
+        
+        
+        //移除返回鈕的文字
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
-        checkApply()
+        //checkApply()
     }
 
     
@@ -96,7 +102,7 @@ class DetailVC: UIViewController {
     func checkApply()
     {
         //檢查方式：點進活動後會取得一組當初建立活動的AutoKey，進來"Apply_Request"
-        //撈出所有資料，表示有被申請的活動，裡面會有申請人ID。用組當初建立活動的AutoKey
+        //撈出所有資料，表示有被申請的活動，裡面會有申請人ID。用當初建立活動的AutoKey
         //來"Apply_Request"裡面比較是否有相同的Key，若有代表你點進來的活動中有人申請，
         //然後就用currentID與活動申請人ID比較，若有相同的就是已申請過
         
@@ -104,7 +110,7 @@ class DetailVC: UIViewController {
         
         if let index = detailindex
         {
-            DBProvider.Instance.dbRef.child("Apply_Request").observeSingleEvent(of: .value, with: { (snapshot) in
+            DBProvider.Instance.dbRef.child("Apply_Request").observe(.value, with: { (snapshot) in
                 
                 if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
                 {
@@ -130,6 +136,23 @@ class DetailVC: UIViewController {
         }
         
     }
+    
+    
+    
+    func loadData()
+    {
+        if let index = detailindex
+        {
+            let cacheURL = URL(string: actMsg[index].imageURL)
+            detailImage.sd_setImage(with: cacheURL)
+        }
+        
+    }
+    
+    
+    
+    
+    
     
 
     

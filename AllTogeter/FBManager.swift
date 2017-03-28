@@ -31,6 +31,10 @@ class FBManager
                 return
             }
             print("xxxFB使用者帳號成功", user)
+            guard let uid = user?.uid else {
+                return
+            }
+            print("xxTest FB UID = \(uid)")
         })
         
         
@@ -44,7 +48,7 @@ class FBManager
                 {
                     
                     let json = JSON(result!)
-                    print("xxxJson = \(json)")
+                    //print("xxxJson = \(json)")
                     
                     FBUser.currentFBUser.setInfo(json: json)
                     

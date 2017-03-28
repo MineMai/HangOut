@@ -22,6 +22,8 @@ class searchLocationVC: UIViewController, CLLocationManagerDelegate, MKMapViewDe
     var sendAddressDelege:sendAddress?
     
     let locationManager = CLLocationManager() //定位需要用的
+    
+    var isMoveMap = false
 
     
     @IBAction func mapTypeChange(_ sender: UISegmentedControl)
@@ -55,6 +57,7 @@ class searchLocationVC: UIViewController, CLLocationManagerDelegate, MKMapViewDe
         //加入長按手勢，加入大頭針
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
         longPress.minimumPressDuration = 1.2
+        
         searchMapView.addGestureRecognizer(longPress)
 
     }
@@ -72,17 +75,38 @@ class searchLocationVC: UIViewController, CLLocationManagerDelegate, MKMapViewDe
         //這就是目前使用者位置
         //print(currentLocation.coordinate.latitude) //這就是目前使用者位置
         
-        
-        //自己隨便取個名字(工作的名稱)
-        DispatchQueue.once(token: "MoveMap") {
-            //裡面的程式只會被執行一次
-            let span = MKCoordinateSpanMake(0.01, 0.01)
-            let region = MKCoordinateRegionMake(currentLocation.coordinate, span)
-            searchMapView.setRegion(region, animated: true)
+        if isMoveMap
+        {
             
         }
+        else
+        {
+            moveMap(currentLocation: currentLocation)
+            isMoveMap = true
+        }
+        
+        
+        
+        //自己隨便取個名字(工作的名稱)
+//        DispatchQueue.once(token: "MoveMap") {
+//            //裡面的程式只會被執行一次
+//            let span = MKCoordinateSpanMake(0.01, 0.01)
+//            let region = MKCoordinateRegionMake(currentLocation.coordinate, span)
+//            searchMapView.setRegion(region, animated: true)
+//            
+//        }
         
     }
+    
+    func moveMap(currentLocation:CLLocation)
+    {
+        let span = MKCoordinateSpanMake(0.01, 0.01)
+        let region = MKCoordinateRegionMake(currentLocation.coordinate, span)
+        searchMapView.setRegion(region, animated: true)
+    }
+    
+    
+    
     
     //長按手勢要做的事，加入大頭針
     func addAnnotation(gestureRecognizer:UIGestureRecognizer)
@@ -123,11 +147,18 @@ class searchLocationVC: UIViewController, CLLocationManagerDelegate, MKMapViewDe
                         //print("placemark = \(placemark.addressDictionary)" + "\n")
                         if let formatadd = placemark.addressDictionary? ["FormattedAddressLines"] as? [String]
                         {
-                            let street = formatadd[0]
-                            let city = formatadd[1]
-                            let country = formatadd[2]
-                            let myLocation = street + city
-                            print("Myaddress = \(street) \(city) \(country)" + "\n")
+                            var myLocation = ""
+                            for i in formatadd
+                            {
+                                myLocation += i
+                            }
+                            
+                            //let street = formatadd[0]
+                            //let city = formatadd[1]
+                            //let country = formatadd[2]
+                            //let myLocation = street + city
+                            //print("Myaddress = \(street) \(city) \(country)" + "\n")
+                            print("Myaddress = \(myLocation)" + "\n")
                             annotation.title = "你選的位置是"
                             annotation.subtitle = myLocation
                             self.searchMapView.addAnnotation(annotation)

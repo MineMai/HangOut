@@ -13,6 +13,8 @@ var actMsg = [ActMsg]()
 
 var hostMsg = [ActMsg]()
 
+var applyMsg = [String]() //只存活動的AutoKey
+
 class ActMsg
 {
     var from = ""
@@ -43,10 +45,12 @@ var forAllActVCtoShowImg = [UIImage]()
 var forHostToShowImg = [UIImage]()
 var detailImagePass = [UIImage]()
 
+//如果用Firebase登入就要把照片名字先存起來，給側邊欄用
+var sideProfileImage:UIImage?
+var sideProfileName:String?
 
-
-
-
+var isFBLogin = false
+var fbUsers:FBUsers?
 
 
 

@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SVProgressHUD
 
 class AddItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, sendAddress {
     
@@ -28,6 +29,8 @@ class AddItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     
     @IBOutlet weak var uiview: UIView!
     
+    
+    
     let segmentItem = ["聚餐","電影","運動","KTV","郊遊","逛逛","其他"]
 
     override func viewDidLoad() {
@@ -47,8 +50,17 @@ class AddItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
         view.addGestureRecognizer(tapGesture)
         
+        //移除返回鈕的文字
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
         
     }
+    
+    @IBAction func cameraBtn(_ sender: UIButton)
+    {
+        selectProfileImage()
+    }
+    
     
     //MARK: 選照片
     func selectProfileImage()
@@ -68,6 +80,12 @@ class AddItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     //MARK: 存新活動Button
     @IBAction func saveNewAct(_ sender: UIBarButtonItem)
     {
+        
+        //設定轉轉轉
+        SVProgressHUD.setDefaultStyle(.light) //轉轉小方框的 亮暗
+        SVProgressHUD.setDefaultMaskType(.black) //轉轉背景的 亮暗
+        SVProgressHUD.show(withStatus: "Upload")
+        
         if checkTextField() == true
         {
            let currentID = FIRAuth.auth()?.currentUser?.uid
@@ -81,7 +99,7 @@ class AddItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
             //存圖片
             let uidString = NSUUID().uuidString
             let activityImagesRef = DBProvider.Instance.storageRef.child("Activity_images").child(currentID!).child(uidString)
-            let imageData:Data = UIImageJPEGRepresentation(newImage.image!, 0.2)!
+            let imageData:Data = UIImageJPEGRepresentation(newImage.image!, 0.1)!
             
             activityImagesRef.put(imageData, metadata: nil) { (metadata, error) in
                 
@@ -99,6 +117,8 @@ class AddItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                 
                 DBProvider.Instance.dbRef.child("Activity").childByAutoId().setValue(data)
                 
+                SVProgressHUD.showSuccess(withStatus: "上傳成功")
+                SVProgressHUD.dismiss() //關閉轉轉轉
                 let _ = self.navigationController?.popViewController(animated: true)
                 
             }
@@ -120,6 +140,7 @@ class AddItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         {
             let dvc = segue.destination as? searchLocationVC
             dvc?.sendAddressDelege = self
+            dvc?.isMoveMap = false
         }
     }
     
@@ -224,6 +245,9 @@ class AddItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         alert.addAction(ok)
         present(alert, animated: true, completion: nil)
     }
+    
+    
+    
     
 
     
