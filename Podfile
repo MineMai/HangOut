@@ -16,5 +16,7 @@ target 'AllTogeter' do
   pod 'FBSDKShareKit'
   pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git'
   pod 'SwiftyJSON', :git => 'https://github.com/BaiduHiDeviOS/SwiftyJSON.git', :branch => 'swift3'
+  pod 'SDWebImage'
+  pod 'SVProgressHUD'
 
 end
