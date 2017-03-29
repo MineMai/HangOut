@@ -21,24 +21,12 @@ class MenuTBVC: UITableViewController {
 
         view.backgroundColor = UIColor(red: 0.20, green: 0.27, blue: 0.38, alpha: 1.0)
         
-//        //如果是用FB登入的才去載FB的照片名字
-//        if FBSDKAccessToken.current() != nil
-//        {
-//            menuNameLabel.text = FBUser.currentFBUser.name
-//            menuPicture.image = try! UIImage(data: Data(contentsOf: URL(string: FBUser.currentFBUser.pictureURL!)!))
-//        }
-//        else
-//        {
-//            menuPicture.image = sideProfileImage
-//            menuNameLabel.text = sideProfileName
-//        }
-        
-        
         menuPicture.layer.cornerRadius = 70 / 2
         menuPicture.layer.borderWidth = 1.0
         menuPicture.layer.borderColor = UIColor.white.cgColor
 
         menuPicture.clipsToBounds = true
+        
         
     }
     
@@ -55,8 +43,7 @@ class MenuTBVC: UITableViewController {
             menuPicture.image = sideProfileImage
             menuNameLabel.text = sideProfileName
         }
-        //menuPicture.image = sideProfileImage
-        //menuNameLabel.text = sideProfileName
+        
     }
     
     

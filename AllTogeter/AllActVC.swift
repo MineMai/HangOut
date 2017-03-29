@@ -23,6 +23,7 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     let searchResultController = UITableViewController()
     var searchController:UISearchController?
     var searchArray = [ActMsg]() //存搜尋的結果
+    var isFirst = true //檢查chieldadd是否第一次執行用
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,6 +98,8 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         SVProgressHUD.setDefaultStyle(.light) //轉轉小方框的 亮暗
         SVProgressHUD.setDefaultMaskType(.black) //轉轉背景的 亮暗
         SVProgressHUD.show(withStatus: "Loading")
+        
+        checkWhoApply()
         
     }
     
@@ -194,7 +197,14 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                                     //如果一樣就把活動Key存起來
                                     applyKey.append(snapDict.key)
                                 }
+                                //-----試做報名通知---------
+//                                if currentID == snapData["host"]
+//                                {
+//                                    print("有人報名 = \(snapData["apply"])")
+//                                }
                                 
+                                
+                                //-----試做報名通知---------
                             }
                         }
                     }
@@ -344,18 +354,49 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     
     
+    func checkWhoApply()
+    {
+        let currentID = FIRAuth.auth()?.currentUser?.uid
+        let apply_request = DBProvider.Instance.dbRef.child("Apply_Request")
+        
+        apply_request.observe(.childAdded) { (snapshots:FIRDataSnapshot) in
+            
+            if let snapshot = snapshots.children.allObjects as? [FIRDataSnapshot]
+            {
+                for snap in snapshot
+                {
+                    if let snapData = snap.value as? Dictionary<String, String>
+                    {
+                        if self.isFirst == false
+                        {
+                            if currentID == snapData["host"]
+                            {
+                                print("有人報名 = \(snapData["apply"])")
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+        //目的只是要把判斷是否為第一次寫在裡面而已，因為firebase語法特性，
+        //observeSingleEvent會等observe(.childAdded)全部跑完才做
+        apply_request.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            self.isFirst = false
+        })
+        
+    }
+    
+    
+    
+    
+    
     
 
 }
 
-//extension NSCache
-//{
-//    class var sharedInstance : NSCache<NSString, AnyObject>
-//    {
-//        let cache = NSCache<NSString, AnyObject>()
-//        return cache
-//    }
-//}
+
 
 
 

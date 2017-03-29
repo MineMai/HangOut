@@ -35,7 +35,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9tG-My-egY">
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="155" id="rOj-PW-ZAH"/>
+                                            <constraint firstAttribute="width" constant="200" id="rOj-PW-ZAH"/>
                                             <constraint firstAttribute="height" constant="30" id="uOs-pL-rY2"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -50,10 +50,10 @@
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="0X6-W0-eiA"/>
-                                            <constraint firstAttribute="width" constant="155" id="Ta3-eZ-AeU"/>
+                                            <constraint firstAttribute="width" constant="200" id="Ta3-eZ-AeU"/>
                                         </constraints>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="emailAddress"/>
                                         <connections>
                                             <outlet property="delegate" destination="urX-i5-MQs" id="Ube-VQ-2gZ"/>
@@ -63,10 +63,10 @@
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="JY8-KN-Vgn"/>
-                                            <constraint firstAttribute="width" constant="155" id="VnV-A4-rY3"/>
+                                            <constraint firstAttribute="width" constant="200" id="VnV-A4-rY3"/>
                                         </constraints>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="urX-i5-MQs" id="ghb-qr-dsh"/>
@@ -74,7 +74,7 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dif-lx-mqm">
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="155" id="6gW-CF-K69"/>
+                                            <constraint firstAttribute="width" constant="200" id="6gW-CF-K69"/>
                                             <constraint firstAttribute="height" constant="30" id="ayV-7I-JMn"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
@@ -1277,7 +1277,7 @@
                                 <collectionViewLayout key="collectionViewLayout" id="NkM-8e-cbH" customClass="ZoomingLayout" customModule="AllTogeter" customModuleProvider="target"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HostCell" id="hMa-w2-2kf" customClass="HostCell" customModule="AllTogeter" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                        <rect key="frame" x="88" y="0.0" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
@@ -1380,7 +1380,7 @@
                                 <collectionViewLayout key="collectionViewLayout" id="f5e-wI-7hG" customClass="ZoomingLayout" customModule="AllTogeter" customModuleProvider="target"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ApplyCell" id="Txi-cJ-rbH" customClass="ApplyCell" customModule="AllTogeter" customModuleProvider="target">
-                                        <rect key="frame" x="88" y="0.0" width="200" height="200"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>

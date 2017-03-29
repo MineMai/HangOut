@@ -32,7 +32,7 @@ class MainViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFiel
         
         view.addSubview(fbloginButton)
         
-        fbloginButton.frame = CGRect(x: 40, y: 530, width: view.frame.width - 80, height: 40)
+        fbloginButton.frame = CGRect(x: 50, y: 530, width: view.frame.width - 100, height: 40)
         
         fbloginButton.delegate = self
         
