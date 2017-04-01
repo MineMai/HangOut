@@ -22,11 +22,16 @@
 		1116894F1E7D788900C14988 /* FBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1116894E1E7D788900C14988 /* FBUser.swift */; };
 		111689511E7E5ACC00C14988 /* MsgHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111689501E7E5ACC00C14988 /* MsgHandler.swift */; };
 		111689531E7E89DF00C14988 /* searchLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111689521E7E89DF00C14988 /* searchLocationVC.swift */; };
+		1135555A1E8F5093009B1278 /* AnimatedTransitioner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113555581E8F5093009B1278 /* AnimatedTransitioner.swift */; };
+		1135555B1E8F5093009B1278 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113555591E8F5093009B1278 /* PresentationController.swift */; };
+		1135555D1E8F50FF009B1278 /* OverlayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1135555C1E8F50FF009B1278 /* OverlayVC.swift */; };
 		11AE217C1E81081B0097AEF4 /* AllActTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AE217B1E81081B0097AEF4 /* AllActTBCell.swift */; };
 		11AE217E1E813D390097AEF4 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AE217D1E813D390097AEF4 /* MapVC.swift */; };
 		11AE21A11E826C650097AEF4 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11AE21A01E826C650097AEF4 /* EditProfileVC.swift */; };
 		11C3E9C81E8B93F600E66E82 /* ApplyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C3E9C71E8B93F600E66E82 /* ApplyVC.swift */; };
 		11C3E9CA1E8B941000E66E82 /* ApplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C3E9C91E8B941000E66E82 /* ApplyCell.swift */; };
+		11C3E9EE1E8CC6CD00E66E82 /* SearchTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C3E9ED1E8CC6CD00E66E82 /* SearchTBVC.swift */; };
+		11C3E9F01E8CC6FC00E66E82 /* SearchTBVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C3E9EF1E8CC6FC00E66E82 /* SearchTBVCell.swift */; };
 		11C42F221E82732C0024A846 /* HostListTBVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C42F211E82732C0024A846 /* HostListTBVC.swift */; };
 		11C42F241E8274C80024A846 /* HostListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C42F231E8274C80024A846 /* HostListCell.swift */; };
 		11D0C5ED1E8A146A00DE882D /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D0C5EC1E8A146A00DE882D /* Reachability.m */; };
@@ -61,11 +66,16 @@
 		1116894E1E7D788900C14988 /* FBUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBUser.swift; sourceTree = "<group>"; };
 		111689501E7E5ACC00C14988 /* MsgHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MsgHandler.swift; sourceTree = "<group>"; };
 		111689521E7E89DF00C14988 /* searchLocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchLocationVC.swift; sourceTree = "<group>"; };
+		113555581E8F5093009B1278 /* AnimatedTransitioner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedTransitioner.swift; sourceTree = "<group>"; };
+		113555591E8F5093009B1278 /* PresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		1135555C1E8F50FF009B1278 /* OverlayVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayVC.swift; sourceTree = "<group>"; };
 		11AE217B1E81081B0097AEF4 /* AllActTBCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllActTBCell.swift; sourceTree = "<group>"; };
 		11AE217D1E813D390097AEF4 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		11AE21A01E826C650097AEF4 /* EditProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		11C3E9C71E8B93F600E66E82 /* ApplyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplyVC.swift; sourceTree = "<group>"; };
 		11C3E9C91E8B941000E66E82 /* ApplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplyCell.swift; sourceTree = "<group>"; };
+		11C3E9ED1E8CC6CD00E66E82 /* SearchTBVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTBVC.swift; sourceTree = "<group>"; };
+		11C3E9EF1E8CC6FC00E66E82 /* SearchTBVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTBVCell.swift; sourceTree = "<group>"; };
 		11C42F211E82732C0024A846 /* HostListTBVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostListTBVC.swift; sourceTree = "<group>"; };
 		11C42F231E8274C80024A846 /* HostListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostListCell.swift; sourceTree = "<group>"; };
 		11D0C5EB1E8A146A00DE882D /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -158,6 +168,9 @@
 				111014611E8AB5F9009418EC /* HostCell.swift */,
 				11C3E9C71E8B93F600E66E82 /* ApplyVC.swift */,
 				11C3E9C91E8B941000E66E82 /* ApplyCell.swift */,
+				1135555C1E8F50FF009B1278 /* OverlayVC.swift */,
+				11C3E9ED1E8CC6CD00E66E82 /* SearchTBVC.swift */,
+				11C3E9EF1E8CC6FC00E66E82 /* SearchTBVCell.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -167,6 +180,8 @@
 			children = (
 				11D77F701E705ECE001102AC /* Main.storyboard */,
 				111014631E8AB95F009418EC /* ZoomingLayout.swift */,
+				113555581E8F5093009B1278 /* AnimatedTransitioner.swift */,
+				113555591E8F5093009B1278 /* PresentationController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -334,27 +349,32 @@
 			files = (
 				11C3E9CA1E8B941000E66E82 /* ApplyCell.swift in Sources */,
 				11D77F8B1E7061A5001102AC /* AuthProvider.swift in Sources */,
+				1135555D1E8F50FF009B1278 /* OverlayVC.swift in Sources */,
 				111689421E7C284200C14988 /* DetailVC.swift in Sources */,
 				111014621E8AB5F9009418EC /* HostCell.swift in Sources */,
 				111689461E7CFB0300C14988 /* ProfileVC.swift in Sources */,
 				11D77F751E705ECF001102AC /* AllTogeter.xcdatamodeld in Sources */,
 				1116893E1E7C1A5600C14988 /* AllActVC.swift in Sources */,
 				11C42F241E8274C80024A846 /* HostListCell.swift in Sources */,
+				11C3E9EE1E8CC6CD00E66E82 /* SearchTBVC.swift in Sources */,
 				1116894F1E7D788900C14988 /* FBUser.swift in Sources */,
 				111689441E7C3C1D00C14988 /* AddItemVC.swift in Sources */,
 				11AE217E1E813D390097AEF4 /* MapVC.swift in Sources */,
 				1116893B1E7C097300C14988 /* MainViewController.swift in Sources */,
+				1135555B1E8F5093009B1278 /* PresentationController.swift in Sources */,
 				111014641E8AB95F009418EC /* ZoomingLayout.swift in Sources */,
 				11AE217C1E81081B0097AEF4 /* AllActTBCell.swift in Sources */,
 				11C42F221E82732C0024A846 /* HostListTBVC.swift in Sources */,
 				111689511E7E5ACC00C14988 /* MsgHandler.swift in Sources */,
 				111689531E7E89DF00C14988 /* searchLocationVC.swift in Sources */,
+				11C3E9F01E8CC6FC00E66E82 /* SearchTBVCell.swift in Sources */,
 				111014601E8AB56E009418EC /* HostVC.swift in Sources */,
 				1110145E1E8AB217009418EC /* ContainerViewController.swift in Sources */,
 				11D0C5ED1E8A146A00DE882D /* Reachability.m in Sources */,
 				11D77FCC1E712B56001102AC /* DBProvider.swift in Sources */,
 				11C3E9C81E8B93F600E66E82 /* ApplyVC.swift in Sources */,
 				111689401E7C1F3500C14988 /* MenuTBVC.swift in Sources */,
+				1135555A1E8F5093009B1278 /* AnimatedTransitioner.swift in Sources */,
 				11D77F6D1E705ECE001102AC /* AppDelegate.swift in Sources */,
 				111689391E7C081900C14988 /* SWRevealViewController.m in Sources */,
 				11D77F871E706011001102AC /* Model.swift in Sources */,

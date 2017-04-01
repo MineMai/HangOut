@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 import SwiftyJSON
-
+import SVProgressHUD
 
 class MainViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFieldDelegate {
     
@@ -52,7 +52,8 @@ class MainViewController: UIViewController, FBSDKLoginButtonDelegate, UITextFiel
         if reach?.currentReachabilityStatus().rawValue == 0
         {
             //沒網路
-            alertTheUser(title: "無網路連線", message: "請檢查網路狀態")
+            SVProgressHUD.showError(withStatus: "無網路連線")
+            //alertTheUser(title: "無網路連線", message: "請檢查網路狀態")
         }
         else
         {
