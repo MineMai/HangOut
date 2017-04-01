@@ -24,8 +24,19 @@ class MenuTBVC: UITableViewController {
         menuPicture.layer.cornerRadius = 70 / 2
         menuPicture.layer.borderWidth = 1.0
         menuPicture.layer.borderColor = UIColor.white.cgColor
-
         menuPicture.clipsToBounds = true
+        
+        //如果是用FB登入的才去載FB的照片名字
+        if isFBLogin
+        {
+            menuNameLabel.text = fbUsers?.name
+            menuPicture.image = try! UIImage(data: Data(contentsOf: (fbUsers?.pictureURL)!))
+        }
+        else
+        {
+            menuPicture.image = sideProfileImage
+            menuNameLabel.text = sideProfileName
+        }
         
         
     }
@@ -63,6 +74,7 @@ class MenuTBVC: UITableViewController {
                 hostMsg = []
                 forAllActVCtoShowImg = []
                 detailImagePass = []
+                sideProfileImage = nil
                 print("已登出Firebase帳號")
             }
             else

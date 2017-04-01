@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import SVProgressHUD
 
 protocol sendAddress
 {
@@ -161,10 +162,12 @@ class searchLocationVC: UIViewController, CLLocationManagerDelegate, MKMapViewDe
                             print("Myaddress = \(myLocation)" + "\n")
                             annotation.title = "你選的位置是"
                             annotation.subtitle = myLocation
+                
                             self.searchMapView.addAnnotation(annotation)
                             
                             //傳值到前一頁
                             self.sendAddressDelege?.getaddress(address: myLocation)
+                            SVProgressHUD.showSuccess(withStatus: "設定完成")
                         }
                         
                     }

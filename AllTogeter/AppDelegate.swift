@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import Firebase
 import FBSDKCoreKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +30,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor(red: 0.20, green: 0.27, blue: 0.38, alpha: 1.0)
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        
+        //設定推播通知
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { granted, error in
+            if granted {
+                print("使用者同意")
+            }
+            else {
+                print("使用者不同意")
+            }
+        })
+        
+        //在背景執行，但只有10分鐘
+        application.beginBackgroundTask(withName: "showNotification", expirationHandler: nil)
+        
+        //有客製化東西，所以有協定要代理
+        //將 AppDelegate 物件設為 UNUserNotificationCenter 物件的代理人
+        UNUserNotificationCenter.current().delegate = self
+        
         
         //FB的設定-1
         return FBSDKApplicationDelegate.sharedInstance().application(
@@ -54,6 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillResignActive(_ application: UIApplication) {
         
+        application.applicationIconBadgeNumber = 0
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -68,6 +88,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //FB的設定-3
     func applicationDidBecomeActive(_ application: UIApplication) {
         FBSDKAppEvents.activateApp()
+        
+        var badgeCount = UIApplication.shared.applicationIconBadgeNumber
+        badgeCount = badgeCount + 1
     }
     
 
@@ -122,4 +145,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
+
+
+//遵從 UNUserNotificationCenterDelegate Protocol
+//這是要在前景顯示通知所要加的方法
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.badge, .sound, .alert])
+    }
+    
+    
+    //使用者收到推播時做的反應，會出發這個方法，判斷使用者點擊通知，解析通知內容
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler:  @escaping () -> Void) {
+        
+        let content = response.notification.request.content
+        print("title \(content.title)")
+        print("userInfo \(content.userInfo)")
+        //判斷使用者點選通知的哪一個按鈕
+        print("actionIdentifier \(response.actionIdentifier)")
+        
+        completionHandler()
+    }
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
 

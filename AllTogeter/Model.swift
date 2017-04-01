@@ -17,6 +17,8 @@ var applyKey = [String]() //只存活動的AutoKey
 
 var applyMsg = [ApplyMsg]()
 
+var searchArray = [ActMsg]() //存搜尋列的結果
+
 class ActMsg
 {
     var from = ""
@@ -82,7 +84,20 @@ class ApplyMsg
 }
 
 
-
+func isInternetOk() -> Bool
+{
+    let reach = Reachability(hostName: "www.apple.com")
+    if reach?.currentReachabilityStatus().rawValue == 0
+    {
+        //沒網路
+        return false
+    }
+    else
+    {
+        //有網路
+        return true
+    }
+}
 
 
 

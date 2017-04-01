@@ -80,50 +80,57 @@ class AddItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
     //MARK: 存新活動Button
     @IBAction func saveNewAct(_ sender: UIBarButtonItem)
     {
-        
-        //設定轉轉轉
-        SVProgressHUD.setDefaultStyle(.light) //轉轉小方框的 亮暗
-        SVProgressHUD.setDefaultMaskType(.black) //轉轉背景的 亮暗
-        SVProgressHUD.show(withStatus: "Upload")
-        
-        if checkTextField() == true
+        if isInternetOk()
         {
-           let currentID = FIRAuth.auth()?.currentUser?.uid
+            //設定轉轉轉
+            SVProgressHUD.setDefaultStyle(.light) //轉轉小方框的 亮暗
+            SVProgressHUD.setDefaultMaskType(.black) //轉轉背景的 亮暗
+            SVProgressHUD.show(withStatus: "Upload")
             
-            let topic = newTopic.text!
-            let place = newPlace.text!
-            let time = newTime.text!
-            let people = newPeople.text!
-            let kind = newKind.text!
-            
-            //存圖片
-            let uidString = NSUUID().uuidString
-            let activityImagesRef = DBProvider.Instance.storageRef.child("Activity_images").child(currentID!).child(uidString)
-            let imageData:Data = UIImageJPEGRepresentation(newImage.image!, 0.1)!
-            
-            activityImagesRef.put(imageData, metadata: nil) { (metadata, error) in
+            if checkTextField() == true
+            {
+                let currentID = FIRAuth.auth()?.currentUser?.uid
                 
-                if error != nil
-                {
-                    print("上傳圖片錯誤: \(error?.localizedDescription)")
-                    return
+                let topic = newTopic.text!
+                let place = newPlace.text!
+                let time = newTime.text!
+                let people = newPeople.text!
+                let kind = newKind.text!
+                
+                //存圖片
+                let uidString = NSUUID().uuidString
+                let activityImagesRef = DBProvider.Instance.storageRef.child("Activity_images").child(currentID!).child(uidString)
+                let imageData:Data = UIImageJPEGRepresentation(newImage.image!, 0.1)!
+                
+                activityImagesRef.put(imageData, metadata: nil) { (metadata, error) in
+                    
+                    if error != nil
+                    {
+                        print("上傳圖片錯誤: \(error?.localizedDescription)")
+                        return
+                    }
+                    
+                    //照片儲存位置
+                    let imageURL:String = (metadata?.downloadURL()?.absoluteString)!
+                    
+                    //存資料與圖片
+                    let data:[String:Any] = ["from":currentID!, "topic":topic, "place":place, "time":time, "people":people, "kind":kind, "imageURL":imageURL]
+                    
+                    DBProvider.Instance.dbRef.child("Activity").childByAutoId().setValue(data)
+                    
+                    SVProgressHUD.showSuccess(withStatus: "上傳成功")
+                    SVProgressHUD.dismiss() //關閉轉轉轉
+                    let _ = self.navigationController?.popViewController(animated: true)
+                    
                 }
                 
-                //照片儲存位置
-                let imageURL:String = (metadata?.downloadURL()?.absoluteString)!
-                
-                //存資料與圖片
-                let data:[String:Any] = ["from":currentID!, "topic":topic, "place":place, "time":time, "people":people, "kind":kind, "imageURL":imageURL]
-                
-                DBProvider.Instance.dbRef.child("Activity").childByAutoId().setValue(data)
-                
-                SVProgressHUD.showSuccess(withStatus: "上傳成功")
-                SVProgressHUD.dismiss() //關閉轉轉轉
-                let _ = self.navigationController?.popViewController(animated: true)
-                
             }
-            
         }
+        else
+        {
+            SVProgressHUD.showError(withStatus: "無網路連線")
+        }
+        
         
     }
     
@@ -245,7 +252,6 @@ class AddItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
         alert.addAction(ok)
         present(alert, animated: true, completion: nil)
     }
-    
     
     
     

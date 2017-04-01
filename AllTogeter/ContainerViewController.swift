@@ -25,6 +25,11 @@ class ContainerViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        self.tabBarController?.tabBar.items?[1].badgeValue = nil
+    }
+    
     
     @IBAction func segmentBtn(_ sender: UISegmentedControl)
     {

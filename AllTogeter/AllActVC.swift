@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 import SVProgressHUD
+import UserNotifications
 
 class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     
@@ -20,15 +21,16 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     let pullToRefreshControl = UIRefreshControl()
     
-    let searchResultController = UITableViewController()
+    //實作搜尋列要用的
+    let searchResultController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "searchTable") as! SearchTBVC
     var searchController:UISearchController?
-    var searchArray = [ActMsg]() //存搜尋的結果
+    
     var isFirst = true //檢查chieldadd是否第一次執行用
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //allTableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        searchResultController.tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
         searchController = UISearchController(searchResultsController: searchResultController)
         allTableView.tableHeaderView = searchController?.searchBar
         
@@ -48,60 +50,72 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             self.view.addGestureRecognizer(revealViewController().panGestureRecognizer())
         }
         
-        //加入下拉更新
-        allTableView.refreshControl = pullToRefreshControl
-        pullToRefreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
-        
-        
-        
-        //偷印使用者是誰登入
-        let currentID = FIRAuth.auth()?.currentUser?.uid
-        print("主頁currentUser = \(currentID) \n")
-        print("主頁FBCurrentUser = \(FBSDKAccessToken.current()) \n")
-        
-        if let user = FIRAuth.auth()?.currentUser
+        //判斷網路
+        if isInternetOk()
         {
-            for profile in user.providerData //可以判斷是由哪個管道登入
-            {
-                let providerId = profile.providerID
-                //let uid = profile.uid // Provider-specific UID
-                let name = profile.displayName
-                let email = profile.email
-                let photoUrl = profile.photoURL
-                //print("userUID = \(uid)")
-                //print("userName = \(name)")
-                //print("useremail = \(email)")
-                //print("userphotoUrl = \(photoUrl)")
-                //print("userproviderId = \(providerId)")
-                if providerId == "facebook.com"
-                {
-                    isFBLogin = true
-                    fbUsers = FBUsers(name: name!, email: email!, pictureURL: photoUrl!)
-                }
-                else
-                {
-                    isFBLogin = false
-                }
-            }
-            //loadData讀值
-            loadProfileImage()
-            loadData()
+            //加入下拉更新
+            allTableView.refreshControl = pullToRefreshControl
+            pullToRefreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
             
+            //偷印使用者是誰登入
+            let currentID = FIRAuth.auth()?.currentUser?.uid
+            print("主頁currentUser = \(currentID) \n")
+            print("主頁FBCurrentUser = \(FBSDKAccessToken.current()) \n")
+            
+            if let user = FIRAuth.auth()?.currentUser
+            {
+                for profile in user.providerData //可以判斷是由哪個管道登入
+                {
+                    let providerId = profile.providerID
+                    //let uid = profile.uid // Provider-specific UID
+                    let name = profile.displayName
+                    let email = profile.email
+                    let photoUrl = profile.photoURL
+                    //print("userUID = \(uid)")
+                    //print("userName = \(name)")
+                    //print("useremail = \(email)")
+                    //print("userphotoUrl = \(photoUrl)")
+                    //print("userproviderId = \(providerId)")
+                    if providerId == "facebook.com"
+                    {
+                        isFBLogin = true
+                        fbUsers = FBUsers(name: name!, email: email!, pictureURL: photoUrl!)
+                    }
+                    else
+                    {
+                        isFBLogin = false
+                    }
+                }
+                //loadData讀值
+                loadProfileImage()
+                loadData()
+                
+            }
+            else
+            {
+                print("No user is signed in")
+                
+            }
+            
+            //設定轉轉轉
+            SVProgressHUD.setDefaultStyle(.light) //轉轉小方框的 亮暗
+            SVProgressHUD.setDefaultMaskType(.black) //轉轉背景的 亮暗
+            SVProgressHUD.show(withStatus: "Loading")
+            
+            checkWhoApply()
         }
         else
         {
-            print("No user is signed in")
-            
+            SVProgressHUD.showError(withStatus: "無網路連線")
         }
         
-        //設定轉轉轉
-        SVProgressHUD.setDefaultStyle(.light) //轉轉小方框的 亮暗
-        SVProgressHUD.setDefaultMaskType(.black) //轉轉背景的 亮暗
-        SVProgressHUD.show(withStatus: "Loading")
-        
-        checkWhoApply()
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        searchController?.searchBar.text = "" //清空搜尋列的文字
+    }
+    
     
     // MARK: - 搜尋列協定方法
     //這方法就是要來搜尋的
@@ -226,6 +240,9 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == allTableView
         {
+            if actMsg.count == 0 {
+                SVProgressHUD.dismiss()
+            }
             return actMsg.count
         }
         else
@@ -253,15 +270,25 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             cell.activityImage.sd_setImage(with: cacheURL, placeholderImage: UIImage(named: "picture_placeholder.png"))
             
+            //確認側邊欄圖片是否載完，才取消轉轉
+            if sideProfileImage != nil
+            {
+                SVProgressHUD.dismiss()
+            }
             
-            SVProgressHUD.dismiss()
             
             return cell
         }
         else
         {
-            let cell = UITableViewCell()
-            cell.textLabel?.text = searchArray[indexPath.row].topic
+            let cell = searchResultController.tableView.dequeueReusableCell(withIdentifier: "SearchTBVCell", for: indexPath) as! SearchTBVCell
+            cell.searchTopicLabel.text = searchArray[indexPath.row].topic
+            cell.searchTimeLabel.text = searchArray[indexPath.row].time
+            cell.searchKindLabel.text = searchArray[indexPath.row].kind
+            
+            let cacheURL = URL(string: searchArray[indexPath.row].imageURL)
+            cell.searchImage.sd_setImage(with: cacheURL, placeholderImage: UIImage(named: "picture_placeholder.png"))
+            
             return cell
         }
         
@@ -276,18 +303,41 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         {
             let dvc = segue.destination as? DetailVC
             dvc?.detailindex = allTableView.indexPathForSelectedRow?.row
+            dvc?.searchIndex = searchResultController.tableView.indexPathForSelectedRow?.row
         
         }
+        
+        
+        
     }
-    
-    
-    
     
     
     //取消點選的灰色
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        performSegue(withIdentifier: "detailSegue", sender: nil)
+        
+        //轉場後讓search bar消失
+        searchController?.dismiss(animated: true, completion: nil)
+        
+        //消除點選的灰色
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        /*
+        if tableView == allTableView
+        {
+            performSegue(withIdentifier: "detailSegue", sender: nil)
+        }
+        else
+        {
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let pushViewController = storyboard.instantiateViewController(withIdentifier: "detailVC")
+            navigationController?.pushViewController(pushViewController, animated: true)
+            searchController?.searchBar.text = ""
+            searchController?.searchBar.resignFirstResponder()
+        } */
+        
+        
     }
     
     
@@ -319,6 +369,7 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             if isFBLogin
             {
                 sideProfileImage = try! UIImage(data: Data(contentsOf: (fbUsers?.pictureURL)!))
+                SVProgressHUD.dismiss()
             }
             else
             {
@@ -341,14 +392,12 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         
                         guard let imageData = UIImage(data: data!) else { return }
                         sideProfileImage = imageData
-    
-                        DispatchQueue.main.async {
-                            
-                        }
                         
+                        SVProgressHUD.dismiss()
                     }).resume()
                 })
             }
+            
         }
     }
     
@@ -365,13 +414,22 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             {
                 for snap in snapshot
                 {
+                    //print("snapData = \(snap.key)") //這是活動的Key名稱
                     if let snapData = snap.value as? Dictionary<String, String>
                     {
+                        //print("snapData = \(snapData)")
                         if self.isFirst == false
                         {
                             if currentID == snapData["host"]
                             {
-                                print("有人報名 = \(snapData["apply"])")
+                                //print("有人報名 = \(snapData["apply"])")
+                                //推播寫在這.......
+                                self.pushNotification(title: snapData["applyName"]!)
+                                //再開通知
+                                //let notificationName =
+                                    //Notification.Name("NewApplicantNoti")
+                                //NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["data":self.data])
+                                self.tabBarController?.tabBar.items?[1].badgeValue = "new"//(String)("new")
                             }
                         }
                         
@@ -387,6 +445,32 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         })
         
     }
+    
+    //MARK: pushNotification
+    func pushNotification(title:String)
+    {
+        let content = UNMutableNotificationContent() //建立通知物件(顯示的表單view)
+        content.title = title
+        content.subtitle = " "
+        content.body = "申請加入"
+        content.badge = 1
+        content.sound = UNNotificationSound.default()
+        
+        //發送通知時，在通知裡包含客製化資訊
+        content.userInfo = ["myKey":"myUserInfo"]
+        
+        //let imageURL = Bundle.main.url(forResource: "pic", withExtension: "jpg")
+        //let attachment = try! UNNotificationAttachment(identifier: "", url: imageURL!, options: nil)
+        //content.attachments = [attachment]
+        
+        //設定通知內容的類別 ID
+        content.categoryIdentifier = "myMessage"
+        
+        //let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false) //這是發送通知的種類，如何觸發的
+        let request = UNNotificationRequest(identifier: "myNotification", content: content, trigger: nil)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+    
     
     
     
