@@ -104,7 +104,7 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             SVProgressHUD.show(withStatus: "Loading")
             
             checkWhoApply()
-            //checkPushForUser()
+            //checkPushForUser()  //本來要做發送入取通知
         }
         else
         {
@@ -213,12 +213,6 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                                     //如果一樣就把活動Key存起來
                                     applyKey.append(snapDict.key)
                                 }
-                                //-----試做報名通知---------
-//                                if currentID == snapData["host"]
-//                                {
-//                                    print("有人報名 = \(snapData["apply"])")
-//                                }
-                                //-----試做報名通知---------
                             }
                         }
                     }
@@ -414,7 +408,6 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     //print("snapData = \(snap.key)") //這是活動的Key名稱
                     if let snapData = snap.value as? Dictionary<String, String>
                     {
-                        //print("snapData = \(snapData)")
                         if self.isFirst == false
                         {
                             if currentID == snapData["host"]
@@ -426,7 +419,7 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                                 //let notificationName =
                                     //Notification.Name("NewApplicantNoti")
                                 //NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["data":self.data])
-                                self.tabBarController?.tabBar.items?[1].badgeValue = "new"//(String)("new")
+                                self.tabBarController?.tabBar.items?[1].badgeValue = "new"
                             }
                         }
                         
