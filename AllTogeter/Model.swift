@@ -21,15 +21,15 @@ var searchArray = [ActMsg]() //存搜尋列的結果
 
 class ActMsg
 {
-    var from = ""
+    var from = ""      //誰創建的id
     var topic = ""
     var place = ""
     var time = ""
     var kind = ""
     var people = ""
     var imageURL = ""
-    var currentID = ""
-    var autoKey = ""
+    var currentID = "" //誰報名的id
+    var autoKey = ""   //活動的專屬key
     
     init(from:String, topic:String, place:String, time:String, kind:String, people:String, imageURL:String, currentID:String, autoKey:String)
     {

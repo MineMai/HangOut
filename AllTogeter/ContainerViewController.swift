@@ -19,9 +19,13 @@ class ContainerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //移除返回鈕的文字
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
         hostContainerView.isHidden = false
         applyContainerView.isHidden = true
+        
         
     }
     

@@ -26,6 +26,7 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     var searchController:UISearchController?
     
     var isFirst = true //檢查chieldadd是否第一次執行用
+    var isFirst2 = true //檢查chieldadd是否第一次執行用
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,6 +104,7 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             SVProgressHUD.show(withStatus: "Loading")
             
             checkWhoApply()
+            //checkPushForUser()
         }
         else
         {
@@ -153,8 +155,8 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     // MARK: - loadData
     func loadData()
     {
-        SVProgressHUD.setDefaultStyle(.light) //轉轉小方框的 亮暗
-        SVProgressHUD.setDefaultMaskType(.black) //轉轉背景的 亮暗
+        //SVProgressHUD.setDefaultStyle(.light) //轉轉小方框的 亮暗
+        //SVProgressHUD.setDefaultMaskType(.black) //轉轉背景的 亮暗
         SVProgressHUD.show(withStatus: "Loading")
         
         let currentID = FIRAuth.auth()?.currentUser?.uid
@@ -216,8 +218,6 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
 //                                {
 //                                    print("有人報名 = \(snapData["apply"])")
 //                                }
-                                
-                                
                                 //-----試做報名通知---------
                             }
                         }
@@ -238,15 +238,10 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == allTableView
-        {
-            if actMsg.count == 0 {
-                SVProgressHUD.dismiss()
-            }
+        if tableView == allTableView {
             return actMsg.count
         }
-        else
-        {
+        else {
             return searchArray.count
         }
     }
@@ -380,6 +375,8 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     
                     if error != nil {
                         print("downloadURL Error:\(error?.localizedDescription)")
+                        SVProgressHUD.dismiss()
+                        SVProgressHUD.showError(withStatus: "伺服器無回應，請稍候再試")
                         return
                     }
                     
@@ -446,7 +443,7 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
     }
     
-    //MARK: pushNotification
+    //MARK: push Notification
     func pushNotification(title:String)
     {
         let content = UNMutableNotificationContent() //建立通知物件(顯示的表單view)
@@ -471,6 +468,84 @@ class AllActVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
+    
+    
+    func checkPushForUser()
+    {
+        let currentID = FIRAuth.auth()?.currentUser?.uid
+        let checkNotifi = DBProvider.Instance.dbRef.child("enrolled")
+        
+        checkNotifi.observe(.childChanged) { (snapshots:FIRDataSnapshot) in
+            
+            if let snapshot = snapshots.children.allObjects as? [FIRDataSnapshot]
+            {
+                for snap in snapshot
+                {
+                    //print("snapData = \(snap.key)") //這是活動的Key名稱
+                    if let snapData = snap.value as? Dictionary<String, String>
+                    {
+                        //print("snapData = \(snapData)")
+                        if self.isFirst2 == false
+                        {
+                            print("currentID = \(currentID)")
+                            print("snapData[id] = \(snapData["id"])")
+                            if currentID == snapData["id"]
+                            {
+                                //print("snapData[confirm] = \(snapData["confirm"])")
+                                if snapData["confirm"] == "true"
+                                {
+                                    print("要傳了")
+                                    //推播寫在這.......
+                                    self.pushNotification2(title: snapData["name"]!, confirm: true)
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //目的只是要把判斷是否為第一次寫在裡面而已，因為firebase語法特性，
+        //observeSingleEvent會等observe(.childAdded)全部跑完才做
+        checkNotifi.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            self.isFirst2 = false
+        })
+    }
+    
+    
+    //MARK: push Notification2
+    func pushNotification2(title:String, confirm:Bool)
+    {
+        let content = UNMutableNotificationContent() //建立通知物件(顯示的表單view)
+        if confirm
+        {
+            content.body = "恭喜！報名成功"
+        }
+        else
+        {
+            content.body = "抱歉！你已被取消報名資格"
+        }
+        content.title = title
+        content.subtitle = " "
+        //content.body = "恭喜！報名成功"
+        content.badge = 1
+        content.sound = UNNotificationSound.default()
+        
+        //發送通知時，在通知裡包含客製化資訊
+        content.userInfo = ["myKey":"myUserInfo"]
+        
+        //let imageURL = Bundle.main.url(forResource: "pic", withExtension: "jpg")
+        //let attachment = try! UNNotificationAttachment(identifier: "", url: imageURL!, options: nil)
+        //content.attachments = [attachment]
+        
+        //設定通知內容的類別 ID
+        content.categoryIdentifier = "myMessage2"
+        
+        //let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false) //這是發送通知的種類，如何觸發的
+        let request = UNNotificationRequest(identifier: "myNotification2", content: content, trigger: nil)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
     
     
     

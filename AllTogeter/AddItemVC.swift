@@ -100,13 +100,15 @@ class AddItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                 //存圖片
                 let uidString = NSUUID().uuidString
                 let activityImagesRef = DBProvider.Instance.storageRef.child("Activity_images").child(currentID!).child(uidString)
-                let imageData:Data = UIImageJPEGRepresentation(newImage.image!, 0.1)!
+                let imageData:Data = UIImageJPEGRepresentation(newImage.image!, 0.4)!
                 
                 activityImagesRef.put(imageData, metadata: nil) { (metadata, error) in
                     
                     if error != nil
                     {
                         print("上傳圖片錯誤: \(error?.localizedDescription)")
+                        SVProgressHUD.dismiss()
+                        SVProgressHUD.showError(withStatus: "伺服器無回應，請稍候再試")
                         return
                     }
                     
@@ -119,15 +121,17 @@ class AddItemVC: UIViewController, UIImagePickerControllerDelegate, UINavigation
                     DBProvider.Instance.dbRef.child("Activity").childByAutoId().setValue(data)
                     
                     SVProgressHUD.showSuccess(withStatus: "上傳成功")
-                    SVProgressHUD.dismiss() //關閉轉轉轉
+                    SVProgressHUD.dismiss(withDelay: 0.5) //關閉轉轉轉
                     let _ = self.navigationController?.popViewController(animated: true)
                     
                 }
                 
             }
+            else {
+                SVProgressHUD.dismiss() //關閉轉轉轉
+            }
         }
-        else
-        {
+        else {
             SVProgressHUD.showError(withStatus: "無網路連線")
         }
         

@@ -168,6 +168,7 @@ class searchLocationVC: UIViewController, CLLocationManagerDelegate, MKMapViewDe
                             //傳值到前一頁
                             self.sendAddressDelege?.getaddress(address: myLocation)
                             SVProgressHUD.showSuccess(withStatus: "設定完成")
+                            SVProgressHUD.dismiss(withDelay: 1)
                         }
                         
                     }

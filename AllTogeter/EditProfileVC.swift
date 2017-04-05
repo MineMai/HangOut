@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FBSDKLoginKit
+import SVProgressHUD
 
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -60,6 +61,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         {
             let alert = UIAlertController(title: "確定修改？", message: nil, preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style: .destructive) { (action) in
+                SVProgressHUD.show(withStatus: "Upload")
                 
                 let currentID = FIRAuth.auth()?.currentUser?.uid
                 var userName = ""
@@ -87,6 +89,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                     let data:[String:Any] = ["name":userName, "Image":imageURL]
                     DBProvider.Instance.dbRef.child("Users").child(currentID!).updateChildValues(data)
                     
+                    SVProgressHUD.dismiss()
                     let _ = self.navigationController?.popViewController(animated: true)
                 }
             }//ok

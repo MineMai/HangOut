@@ -16,6 +16,9 @@ class HostVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     //給彈跳視窗用的
     let transitionDelegate = TransitionDelegate()
     
+    var forEditPageIndex = 0
+    var forReviewIndex = 0
+    var forAllowIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,30 +27,60 @@ class HostVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         hostCollectionView.dataSource = self
         hostCollectionView.decelerationRate = UIScrollViewDecelerationRateFast
         
+        
+    }
+    
+    //MARK: -收到通知要做的方法
+    func reloadCollection(noti:NSNotification)
+    {
+        hostCollectionView.reloadData()
+    }
+    //收到通知要做的方法->轉場EditPageVC
+    func goToEdit(noti:NSNotification)
+    {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let editVC = storyboard.instantiateViewController(withIdentifier: "editPage") as! EditPageVC
+        editVC.editIndex = forEditPageIndex
+        
+        self.navigationController?.pushViewController(editVC, animated: true)
+    }
+    //收到通知要做的方法->轉場ReViewDetailVC
+    func goToReviewDetail(noti:NSNotification)
+    {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let reViewDetailVC = storyboard.instantiateViewController(withIdentifier: "ReViewDetailVC") as! ReViewDetailVC
+        reViewDetailVC.reviewIndex = forReviewIndex
+        
+        self.navigationController?.pushViewController(reViewDetailVC, animated: true)
+    }
+    //收到通知要做的方法->轉場goToAllow
+    func goToAllow(noti:NSNotification)
+    {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let allowTBVC = storyboard.instantiateViewController(withIdentifier: "AllowTBVC") as! AllowTBVC
+        allowTBVC.allowIndex = forAllowIndex
+        
+        self.navigationController?.pushViewController(allowTBVC, animated: true)
+    }
+    
+    
+    //MARK: viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
         //監聽通知
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCollection), name: NSNotification.Name(rawValue: "reloadCollection"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(goToEdit), name: NSNotification.Name(rawValue: "goToEdit"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(goToReviewDetail), name: NSNotification.Name(rawValue: "goToReviewDetail"), object: nil)
         
-    }
-    
-    //收到通知要做的方法
-    func reloadCollection(noti:NSNotification)
-    {
-        hostCollectionView.reloadData()
-    }
-    func goToEdit(noti:NSNotification)
-    {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let editVC = storyboard.instantiateViewController(withIdentifier: "editPage")
-        self.navigationController?.pushViewController(editVC, animated: true)
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(goToAllow), name: NSNotification.Name(rawValue: "goToAllow"), object: nil)
         
         hostCollectionView.reloadData()
+    }
+    
+    //移除監聽器
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
     }
     
     
@@ -74,8 +107,6 @@ class HostVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         
         let cacheURL = URL(string: hostMsg[indexPath.row].imageURL)
         
-        //cell.imageView.sd_setImage(with: cacheURL)
-        
         cell.imageView.sd_setImage(with: cacheURL, placeholderImage: UIImage(named: "picture_placeholder.png"))
         
         return cell
@@ -97,9 +128,11 @@ class HostVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 //                collectionView.reloadData()
 //        })
         
+        forEditPageIndex = indexPath.row
+        forReviewIndex = indexPath.row
+        forAllowIndex = indexPath.row
+        
         showOverlay(indexPath: indexPath)
-        
-        
         
     }
     

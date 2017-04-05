@@ -26,7 +26,21 @@ class ApplyVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
     
     override func viewWillAppear(_ animated: Bool) {
         
+        //監聽通知
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadApplyVC), name: NSNotification.Name(rawValue: "reloadApplyVC"), object: nil)
+        //load資料
         loadData()
+    }
+    
+    //MARK: -收到通知要做的方法
+    func reloadApplyVC(noti:NSNotification)
+    {
+        loadData()
+    }
+    
+    //MARK: 移除監聽
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
     }
     
     
@@ -53,13 +67,34 @@ class ApplyVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
         
         let cacheURL = URL(string: applyMsg[indexPath.row].imageURL)
         
-        //cell.imageView.sd_setImage(with: cacheURL)
-        
         cell.imageView.sd_setImage(with: cacheURL, placeholderImage: UIImage(named: "picture_placeholder.png"))
         
         return cell
         
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        performSegue(withIdentifier: "ApplyVCSegue", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "ApplyVCSegue"
+        {
+            let rvc = segue.destination as! ReViewDetailVC
+            let path = applyCollectionView.indexPathsForSelectedItems?[0].row
+            if let index = path
+            {
+                rvc.fromSegueIndex = index
+                rvc.isFromSegue = true
+            }
+            
+        }
+    }
+    
+    
     
     
     func loadData()
@@ -79,6 +114,9 @@ class ApplyVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
         applyCollectionView.reloadData()
         
     }
+    
+    
+    
     
     
 

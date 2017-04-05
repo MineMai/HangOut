@@ -29,8 +29,9 @@ class DetailVC: UIViewController {
     
     var detailindex:Int?
     var indexImage:UIImage?
-    
     var searchIndex:Int?
+    
+    var userImageString:String? //讀User的大頭照 的string
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +89,11 @@ class DetailVC: UIViewController {
         //checkApply()
         checkEnrolled()
     }
+    
+    //為了避免 若將此筆資料刪除時，還停留在這頁，會out of range，所以就回到主頁
+    override func viewDidDisappear(_ animated: Bool) {
+        let _ = navigationController?.popViewController(animated: true)
+    }
 
     
     
@@ -121,7 +127,11 @@ class DetailVC: UIViewController {
               DBProvider.Instance.dbRef.child("Apply_Request").childByAutoId().child(actMsg[index].autoKey).setValue(data)
                 
                 //updata報名人數
-                DBProvider.Instance.dbRef.child("enrolled").child(actMsg[index].autoKey).childByAutoId().setValue(["name": name])
+                if let userImage = userImageString //存進Firebase不能是可選型別
+                {
+                    DBProvider.Instance.dbRef.child("enrolled").child(actMsg[index].autoKey).childByAutoId().setValue(["name": name,"image":userImage,"confirm":"false","id":actMsg[index].currentID])
+                }
+                
             }
             
         }
@@ -135,7 +145,10 @@ class DetailVC: UIViewController {
                     DBProvider.Instance.dbRef.child("Apply_Request").childByAutoId().child(searchArray[index].autoKey).setValue(data)
                     
                     //updata報名人數
-                    DBProvider.Instance.dbRef.child("enrolled").child(searchArray[index].autoKey).childByAutoId().setValue(["name": name])
+                    if let userImage = userImageString//存進Firebase不能是可選型別
+                    {
+                        DBProvider.Instance.dbRef.child("enrolled").child(searchArray[index].autoKey).childByAutoId().setValue(["name": name,"image":userImage,"confirm":"false"])
+                    }
                 }
             }
         }
@@ -156,13 +169,15 @@ class DetailVC: UIViewController {
         
         if let index = detailindex
         {
-            DBProvider.Instance.dbRef.child("Apply_Request").observe(.value, with: { (snapshot) in
+            DBProvider.Instance.dbRef.child("Apply_Request").observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
                 {
                     for snap in snapshots
                     {
+                        
                         let temp = snap.value as? [String:Any]
+                        
                         let buff = temp?[actMsg[index].autoKey] as? [String:String]
                         let getWhoApply = buff?["apply"] //拿到誰申請
                         
@@ -184,13 +199,15 @@ class DetailVC: UIViewController {
         {
             if let index = searchIndex
             {
-                DBProvider.Instance.dbRef.child("Apply_Request").observe(.value, with: { (snapshot) in
+                DBProvider.Instance.dbRef.child("Apply_Request").observeSingleEvent(of: .value, with: { (snapshot) in
                     
                     if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
                     {
                         for snap in snapshots
                         {
+                            
                             let temp = snap.value as? [String:Any]
+                            
                             let buff = temp?[searchArray[index].autoKey] as? [String:String]
                             let getWhoApply = buff?["apply"] //拿到誰申請
                             
@@ -222,7 +239,7 @@ class DetailVC: UIViewController {
                 var countNum = 0
                 if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
                 {
-                    for snap in snapshots //如果snap加.key可以拿到活動Key
+                    for _ in snapshots //如果snap加.key可以拿到活動Key
                     {
                         //print("snap = \(snap)")
                         countNum += 1
@@ -237,18 +254,18 @@ class DetailVC: UIViewController {
         {
             if let index = searchIndex
             {
-                DBProvider.Instance.dbRef.child("enrolled").child(searchArray[index].autoKey).observe(.value, with: { (snapshot) in
+              DBProvider.Instance.dbRef.child("enrolled").child(searchArray[index].autoKey).observe(.value, with: { (snapshot) in
                     
                     var countNum = 0
                     if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]
                     {
-                        for snap in snapshots //如果snap加.key可以拿到活動Key
+                        for _ in snapshots //如果snap加.key可以拿到活動Key
                         {
-                            print("snap = \(snap)")
+                            //print("snap = \(snap)")
                             countNum += 1
                         }
                     }
-                    print("count = \(countNum)") // 統計出報名人數
+                    //print("count = \(countNum)") // 統計出報名人數
                     self.enrollLabel.text = String(countNum)
                 })
             }
@@ -256,9 +273,6 @@ class DetailVC: UIViewController {
         }
         
     }
-    
-    
-    
     
     
     
@@ -276,6 +290,15 @@ class DetailVC: UIViewController {
                 let cacheURL = URL(string: searchArray[index].imageURL)
                 detailImage.sd_setImage(with: cacheURL)
             }
+        }
+        
+        let currentID = FIRAuth.auth()?.currentUser?.uid
+        
+        DBProvider.Instance.dbRef.child("Users").child(currentID!).observeSingleEvent(of: .value) { (snapshot:FIRDataSnapshot) in
+            
+            let snap = snapshot.value as! [String:String]
+            
+            self.userImageString = snap["Image"]
         }
         
     }

@@ -13,7 +13,7 @@ class AnimatedTransitioning:NSObject, UIViewControllerAnimatedTransitioning {
     var isPresentation = false
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.5
+        return 0.4
     }
 
     
