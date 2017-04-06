@@ -454,10 +454,10 @@
                                 <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AllActCell" rowHeight="230" id="439-3h-y4C" customClass="AllActTBCell" customModule="AllTogeter" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="230"/>
+                                        <rect key="frame" x="0.0" y="28" width="1000" height="230"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="439-3h-y4C" id="lak-Wa-SAY">
-                                            <frame key="frameInset" width="375" height="230"/>
+                                            <frame key="frameInset" width="1000" height="230"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="picture_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="ck8-eB-pzU"/>
@@ -1403,7 +1403,9 @@
         <scene sceneID="Lce-H3-qBD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="a3B-A3-0Ty" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="history" id="5lk-cT-r97"/>
+                    <tabBarItem key="tabBarItem" systemItem="mostViewed" id="5lk-cT-r97">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="duC-3f-DFW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -1435,7 +1437,7 @@
                                 <collectionViewLayout key="collectionViewLayout" id="NkM-8e-cbH" customClass="ZoomingLayout" customModule="AllTogeter" customModuleProvider="target"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HostCell" id="hMa-w2-2kf" customClass="HostCell" customModule="AllTogeter" customModuleProvider="target">
-                                        <rect key="frame" x="88" y="0.0" width="200" height="200"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
@@ -1604,7 +1606,7 @@
                                     <constraint firstItem="y9L-RM-AyC" firstAttribute="centerX" secondItem="0yb-Xh-Ol7" secondAttribute="centerX" id="k3J-qh-ZQH"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="MmV-zJ-SuP">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil" translatesAutoresizingMaskIntoConstraints="NO" id="MmV-zJ-SuP">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="j42-CU-ahs"/>
                                     <constraint firstAttribute="height" constant="60" id="t8W-il-53f"/>
@@ -2044,7 +2046,7 @@
                                 <collectionViewLayout key="collectionViewLayout" id="f5e-wI-7hG" customClass="ZoomingLayout" customModule="AllTogeter" customModuleProvider="target"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ApplyCell" id="Txi-cJ-rbH" customClass="ApplyCell" customModule="AllTogeter" customModuleProvider="target">
-                                        <rect key="frame" x="88" y="0.0" width="200" height="200"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
@@ -2414,10 +2416,10 @@
     </scenes>
     <resources>
         <image name="OrLine" width="864" height="45"/>
-        <image name="close" width="256" height="256"/>
         <image name="home_96p" width="96" height="96"/>
         <image name="icon_menu_24dp" width="24" height="24"/>
         <image name="logout_128p" width="128" height="128"/>
+        <image name="pencil" width="512" height="512"/>
         <image name="photo-camera" width="128" height="128"/>
         <image name="picture_placeholder" width="256" height="256"/>
         <image name="profile_picture" width="300" height="300"/>
